@@ -1,5 +1,6 @@
-console.log("JS CONECTADO!");
+console.log("JS CONECTADO!"); // Exibe uma mensagem no console quando o JS é carregado
 
+// Atribui os elementos do formulário às variáveis para fácil manipulação posterior
 const formulario = document.getElementById("CadastroForm");
 const nome = document.getElementById("nome");
 const email = document.getElementById("email");
@@ -10,20 +11,18 @@ const cpf = document.getElementById("cpf");
 const rg = document.getElementById("rg");
 const msgError = document.getElementsByClassName("msgError");
 
-/* ------ FUNÇÃO PARA RENDERIZAR AS DIFERENTES MENSAGENS DE ERRO! ------ */
+// Função para exibir mensagens de erro
 const createDisplayMsgError = (mensagem) => {
-  msgError[0].textContent = mensagem;
+  msgError[0].textContent = mensagem; // Exibe a mensagem de erro no elemento correspondente
 };
-/* --------------------------------------------------------------------- */
 
-/* ---------------- FUNÇÃO PARA VERIFICAR O NOME ----------------------- */
+// Função para verificar se o nome contém apenas letras e espaços
 const checkNome = () => {
-  const nomeRegex = /^[A-Za-zÀ-ÿ\s]+$/;
-  return nomeRegex.test(nome.value);
+  const nomeRegex = /^[A-Za-zÀ-ÿ\s]+$/; // Regex para validar letras e espaços
+  return nomeRegex.test(nome.value); // Retorna true se o nome for válido
 };
-/* --------------------------------------------------------------------- */
 
-/* ---------- FUNÇÃO PARA VERIFICAR O EMAIL --------------------- */
+// Função para verificar se o email é de um domínio permitido (gmail, outlook, hotmail)
 const checkEmail = (email) => {
   const partesEmail = email.split("@");
 
@@ -39,16 +38,15 @@ const checkEmail = (email) => {
     return false;
   }
 };
-/* --------------------------------------------------------------------- */
 
-/* ---------- FUNÇÃO PARA VERIFICAR IGUALDADE DAS SENHAS --------------- */
+// Função para verificar se as senhas coincidem
 function checkPasswordMatch() {
-  return senha.value === confirmarSenha.value ? true : false;
+  return senha.value === confirmarSenha.value; // Retorna true se as senhas forem iguais
 }
-/* -----------------------------RG----------------------------- */
+
+// Função para aplicar máscara no RG, permitindo apenas números e formatando o valor
 function maskPhoneRg(event) {
   let rg = event.target.value;
-
   if (/[A-Za-zÀ-ÿ]/.test(rg)) {
     createDisplayMsgError("O rg deve conter apenas números!");
   } else {
@@ -56,15 +54,11 @@ function maskPhoneRg(event) {
   }
 
   rg = rg.replace(/\D/g, ""); // Remove os caracteres não numéricos
-
   if (rg.length > 9) {
     rg = rg.substring(0, 9);
   }
 
-  // rg = rg.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
   if (rg.length > 8) {
-    // rg = rg.replace(/[0-9]{2}\.[\d*]{3}\.[\d*]{3}[-]?[0-9]{2}/);
-
     rg = rg.replace(/(\d{2})(\d)/, "$1.$2");
     rg = rg.replace(/(\d{3})(\d)/, "$1.$2");
     rg = rg.replace(/(\d{3})(\d{1,2})/, "$1-$2");
@@ -73,8 +67,7 @@ function maskPhoneRg(event) {
   event.target.value = rg;
 }
 
-/* ----------- FUNÇÃO PARA INSERIR MASCARA NO CPF ----------------- */
-
+// Função para aplicar máscara no CPF, permitindo apenas números e formatando o valor
 function maskPhoneCpf(event) {
   let cpf = event.target.value;
 
@@ -93,15 +86,14 @@ function maskPhoneCpf(event) {
   cpf = cpf.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
   if (cpf.length > 10) {
     cpf = cpf.replace(/[0-9]{3}\.[\d*]{3}\.[\d*]{3}[-]?[0-9]{2}/);
-
     cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2");
     cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2");
   }
 
   event.target.value = cpf;
 }
-/* --------------------MASCARA CELUAR--------------------- */
 
+// Função para aplicar máscara no celular, permitindo apenas números e formatando o valor
 function maskPhoneNumber(event) {
   let celular = event.target.value;
 
@@ -130,7 +122,7 @@ function maskPhoneNumber(event) {
   event.target.value = celular;
 }
 
-/* ------------- FUNÇÃO PARA VERIFICAR FORÇA DA SENHA ------------------ */
+// Função para verificar a força da senha
 function checkPasswordStrength(senha) {
   if (!/[a-z]/.test(senha)) {
     return "A senha deve ter pelo menos uma letra minúscula!";
@@ -148,15 +140,14 @@ function checkPasswordStrength(senha) {
     return "A senha deve ter pelo menos 8 caracteres!";
   }
 
-  return null;
+  return null; // Retorna null se a senha estiver forte
 }
-/* --------------------------------------------------------------------- */
 
-/* ------------- FUNÇÃO PARA VERIFICAR E ENVIAR DADOS ------------------ */
+// Função para enviar os dados do formulário após a validação
 function fetchDatas(event) {
-  event.preventDefault();
+  event.preventDefault(); // Impede o envio do formulário
 
-  if (!checkNome) {
+  if (!checkNome()) {
     createDisplayMsgError(
       "O nome não pode conter números ou caracteres especiais!"
     );
@@ -164,9 +155,7 @@ function fetchDatas(event) {
   }
 
   if (!checkEmail(email.value)) {
-    createDisplayMsgError(
-      "O nome não pode conter números ou caracteres especiais!"
-    );
+    createDisplayMsgError("O e-mail digitado não é válido!");
     return;
   }
 
@@ -186,6 +175,7 @@ function fetchDatas(event) {
     return;
   }
 
+  // Cria um objeto com os dados do formulário
   const formData = {
     nome: nome.value,
     email: email.value,
@@ -195,13 +185,13 @@ function fetchDatas(event) {
     rg: rg.value,
   };
 
-  console.log("Formulário Enviado: ", JSON.stringify(formData, null, 2));
+  console.log("Formulário Enviado: ", JSON.stringify(formData, null, 2)); // Exibe os dados no console
 }
-/* --------------------------------------------------------------------- */
 
+// Adiciona um evento de submit no formulário para chamar a função de envio
 formulario.addEventListener("submit", fetchDatas);
-/* --------------------------------------------------------------------- */
 
+// Função para gerar "gotas de chuva" (efeito visual na página)
 const rainfuction = () => {
   let rain = document.createElement("span");
   let cont_rain = document.querySelector(".container_rain");
@@ -220,12 +210,12 @@ const rainfuction = () => {
   }, 1500);
 };
 
+// Chama a função rainfuction a cada 250ms para gerar as "gotas"
 setInterval(() => {
   rainfuction();
 }, 250);
 
-/* --------------------------------------------------------------------- */
-
+// Validações ao digitar nos campos do formulário
 nome.addEventListener("input", () => {
   if (nome.value && !checkNome()) {
     createDisplayMsgError(
@@ -238,7 +228,7 @@ nome.addEventListener("input", () => {
 
 email.addEventListener("input", () => {
   if (email.value && !checkEmail(email.value)) {
-    createDisplayMsgError("O e-mail digitado não é valido!");
+    createDisplayMsgError("O e-mail digitado não é válido!");
   } else {
     createDisplayMsgError("");
   }
@@ -251,26 +241,6 @@ senha.addEventListener("input", () => {
     createDisplayMsgError("");
   }
 });
-
-function checkPasswordStrength(senha) {
-  if (!/[a-z]/.test(senha)) {
-    return "A senha deve ter pelo menos uma letra minúscula!";
-  }
-  if (!/[A-Z]/.test(senha)) {
-    return "A senha deve ter pelo menos uma letra maiúscula!";
-  }
-  if (!/[\W_]/.test(senha)) {
-    return "A senha deve ter pelo menos um caractere especial!";
-  }
-  if (!/\d/.test(senha)) {
-    return "A senha deve ter pelo menos um número!";
-  }
-  if (senha.length < 8) {
-    return "A senha deve ter pelo menos 8 caracteres!";
-  }
-
-  return null;
-}
 
 celular.addEventListener("input", maskPhoneNumber);
 cpf.addEventListener("input", maskPhoneCpf);

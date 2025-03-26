@@ -1,290 +1,304 @@
+/* Importando fontes personalizadas */
 @font-face {
-  font-family: "Copperplate";
-  src: url("../fontes/Copperplate.otf");
+  font-family: "Copperplate"; /* Nome da fonte */
+  src: url("../fontes/Copperplate.otf"); /* Caminho da fonte */
 }
 
 @font-face {
-  font-family: "JoseFins";
-  src: url("../fontes/JosefinSans.ttf");
+  font-family: "JoseFins"; /* Nome da fonte */
+  src: url("../fontes/JosefinSans.ttf"); /* Caminho da fonte */
 }
 
+/* Estilos globais */
 * {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+  box-sizing: border-box; /* Define que o modelo de caixa deve incluir bordas e preenchimento no cálculo do tamanho do elemento */
+  padding: 0; /* Remove o padding de todos os elementos */
+  margin: 0; /* Remove as margens de todos os elementos */
 }
 
+/* Estilos para o corpo da página */
 body {
-  height: 100vh;
-  background-color: #000000c6;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  height: 100vh; /* Define a altura como 100% da altura da tela */
+  background-color: #000000c6; /* Define um fundo escuro semi-transparente */
+  display: flex; /* Usa flexbox para centralizar o conteúdo */
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center; /* Centraliza verticalmente */
 }
 
+/* Estilo para o efeito de chuva */
 .container_rain {
-  position: absolute;
+  position: absolute; /* Posiciona o container de chuva fora do fluxo normal do documento */
   top: 0;
   left: 0;
-  width: 400px;
-  height: 100vh;
-  background-color: transparent;
+  width: 400px; /* Largura do container */
+  height: 100vh; /* Altura da tela */
+  background-color: transparent; /* Tornar o fundo transparente */
 }
 
+/* Estilos para as nuvens */
 .cloud {
-  position: absolute;
-  width: 250px;
-  height: 100px;
-  background: url(../imagens/nuvem.png) center / cover no-repeat;
-  filter: drop-shadow(2px 2px 20px white);
+  position: absolute; /* Posiciona as nuvens fora do fluxo normal */
+  width: 250px; /* Largura das nuvens */
+  height: 100px; /* Altura das nuvens */
+  background: url(../imagens/nuvem.png) center / cover no-repeat; /* Aplica uma imagem de nuvem como fundo */
+  filter: drop-shadow(
+    2px 2px 20px white
+  ); /* Aplica um efeito de sombra nas nuvens */
 }
 
 .cloud:nth-child(1) {
-  top: 2.5%;
-  left: 5%;
+  top: 2.5%; /* Define a posição vertical da primeira nuvem */
+  left: 5%; /* Define a posição horizontal da primeira nuvem */
 }
 
 .cloud:nth-child(2) {
-  z-index: 3000;
+  z-index: 3000; /* Define a camada de empilhamento para a segunda nuvem */
   top: 2.5%;
   left: 24%;
 }
-.cloud:nth-child(3) {
-  z-index: 3000;
-  top: 9.5%;
-  left: 5%;
-}
 
+/* Estilos para a chuva */
 .rain {
-  background-color: aliceblue;
-  width: 5px;
-  height: 5px;
-  border-radius: 0 50% 50% 50%;
-  transform: rotate(45deg);
-  box-shadow: inset -25px 10px 0px -10px white;
-  z-index: 1000;
-  position: absolute;
-  top: 90px;
-
-  transform-origin: bottom;
-  animation: animate 2s linear infinite;
+  background-color: aliceblue; /* Cor da gota de chuva */
+  width: 5px; /* Largura da gota de chuva */
+  height: 5px; /* Altura da gota de chuva */
+  border-radius: 0 50% 50% 50%; /* Faz a gota ter um formato arredondado */
+  transform: rotate(
+    45deg
+  ); /* Rotaciona a gota para parecer uma linha inclinada */
+  box-shadow: inset -25px 10px 0px -10px white; /* Efeito de sombra interno */
+  z-index: 1000; /* Define a camada da chuva */
+  position: absolute; /* Posiciona a gota de chuva fora do fluxo */
+  top: 90px; /* Define a posição vertical inicial */
+  transform-origin: bottom; /* Define o ponto de origem da transformação */
+  animation: animate 2s linear infinite; /* Aplica a animação para a queda das gotas de chuva */
 }
 
+/* Animação para a chuva */
 @keyframes animate {
   0% {
-    transform: translateY(0) scaleY(1);
-    opacity: 1;
+    transform: translateY(0) scaleY(1); /* A gota começa na posição inicial */
+    opacity: 1; /* A gota está completamente visível */
   }
   60% {
-    transform: translateY(80vh) scaleY(1);
-    opacity: 1;
+    transform: translateY(80vh) scaleY(1); /* A gota se move para baixo */
+    opacity: 1; /* A gota continua visível */
   }
   60% {
-    transform: translateY(80vh) scaleY(0.2);
-    opacity: 0.5;
+    transform: translateY(80vh) scaleY(0.2); /* A gota encolhe */
+    opacity: 0.5; /* A gota fica mais transparente */
   }
   100% {
-    transform: translateY(80vh) scaleY(0.2);
-    opacity: 0;
+    transform: translateY(80vh) scaleY(0.2); /* A gota chega ao final do caminho */
+    opacity: 0; /* A gota desaparece */
   }
 }
 
+/* Estilos para o container principal */
 .container {
-  width: 80%;
-  height: 80%;
-  background-color: grey;
-  border-radius: 30px;
-  box-shadow: 2px -10px 10px #ffffff;
-
-  display: grid;
-  grid-template-columns: 40% 60%;
-  grid-template-rows: 1fr;
-  justify-items: center;
-  overflow: hidden;
-  align-items: center;
+  width: 80%; /* Largura do container */
+  height: 80%; /* Altura do container */
+  background-color: grey; /* Cor de fundo */
+  border-radius: 30px; /* Borda arredondada */
+  box-shadow: 2px -10px 10px #ffffff; /* Sombra na caixa */
+  display: grid; /* Usa grid para o layout */
+  grid-template-columns: 40% 60%; /* Define as proporções das colunas */
+  grid-template-rows: 1fr; /* Define uma linha */
+  justify-items: center; /* Centraliza os itens */
+  overflow: hidden; /* Impede o conteúdo de transbordar */
+  align-items: center; /* Centraliza os itens verticalmente */
 }
 
+/* Estilos para o container da imagem */
 .image_container {
-  width: 100%;
-  height: 100%;
-  background: url("../imagens/wallpaper.jpg") center / cover no-repeat;
-  border-radius: 0 30px 30px 0;
-
-  padding-left: 10%;
-  position: relative;
-  overflow: hidden;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  width: 100%; /* Largura total */
+  height: 100%; /* Altura total */
+  background: url("../imagens/wallpaper.jpg") center / cover no-repeat; /* Define a imagem de fundo */
+  border-radius: 0 30px 30px 0; /* Bordas arredondadas no lado direito */
+  padding-left: 10%; /* Adiciona um padding à esquerda */
+  position: relative; /* Permite o posicionamento absoluto de elementos internos */
+  overflow: hidden; /* Impede que o conteúdo transborde */
+  display: flex; /* Usado para layout flexível */
+  flex-direction: column; /* Coloca os itens em coluna */
+  justify-content: center; /* Alinha os itens ao centro */
 }
 
+/* Sobreposição de cor escura para melhorar legibilidade do texto */
 .image_container::before {
-  content: "";
+  content: ""; /* Cria um pseudo-elemento */
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.7); /* Cor preta semi-transparente */
+  z-index: 1; /* Coloca a sobreposição sobre o conteúdo */
 }
 
+/* Estilos para o título e texto dentro do container de imagem */
 .image_container h1,
 .image_container p {
-  position: relative;
-  z-index: 2;
-  color: white;
+  position: relative; /* Permite que o texto fique sobre o fundo */
+  z-index: 2; /* Coloca o texto acima da sobreposição */
+  color: white; /* Cor do texto */
 }
 
 .image_container h1 {
-  font-family: "JoseFins";
-  font-size: 50px;
+  font-family: "JoseFins"; /* Fonte personalizada */
+  font-size: 50px; /* Tamanho da fonte */
 }
 
 .image_container p {
-  font-family: "Copperplate";
-  font-size: 13px;
+  font-family: "Copperplate"; /* Fonte personalizada */
+  font-size: 13px; /* Tamanho da fonte */
 }
 
+/* Estilos para o formulário */
 #CadastroForm {
-  width: 80%;
-  height: 90%;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 30px;
+  width: 80%; /* Largura do formulário */
+  height: 90%; /* Altura do formulário */
+  display: flex; /* Usa flexbox para layout */
+  justify-content: center; /* Centraliza o conteúdo horizontalmente */
+  align-items: center; /* Centraliza o conteúdo verticalmente */
+  flex-wrap: wrap; /* Permite que os itens quebrem linha */
+  gap: 30px; /* Espaçamento entre os itens */
 }
 
+/* Estilos para os títulos e parágrafos dentro do formulário */
 #CadastroForm h1,
 #CadastroForm p {
-  width: 100%;
-  text-align: center;
+  width: 100%; /* Largura total */
+  text-align: center; /* Alinha o texto ao centro */
 }
 
 #CadastroForm h1 {
-  font-family: "JoseFins";
-  font-size: 2em;
-  text-align: center;
-  color: whitesmoke;
+  font-family: "JoseFins"; /* Fonte personalizada */
+  font-size: 2em; /* Tamanho da fonte */
+  text-align: center; /* Alinha o título ao centro */
+  color: whitesmoke; /* Cor do texto */
 }
 
 #CadastroForm p {
-  font-family: "Copperplate";
-  font-size: 11px;
-  font-style: italic;
-  color: whitesmoke;
+  font-family: "Copperplate"; /* Fonte personalizada */
+  font-size: 11px; /* Tamanho da fonte */
+  font-style: italic; /* Estilo em itálico */
+  color: whitesmoke; /* Cor do texto */
 }
 
+/* Estilos para os campos de entrada dentro do formulário */
 #CadastroForm .input_data {
   position: relative;
-  width: calc(50% - 15px);
+  width: calc(50% - 15px); /* Largura do campo de entrada */
   display: flex;
-  flex-direction: column;
-  color: black;
+  flex-direction: column; /* Alinha os itens em coluna */
+  color: black; /* Cor do texto */
 }
 
+/* Estilos para os inputs dentro do formulário */
 #CadastroForm .input_data input {
   position: relative;
   z-index: 2;
-  font-family: "Copperplate";
-  font-size: 11px;
+  font-family: "Copperplate"; /* Fonte personalizada */
+  font-size: 11px; /* Tamanho da fonte */
   margin-top: 5px;
-  height: 30px;
-
-  padding: 5px 10px;
-
-  border: none;
-  outline: 0;
-  background-color: transparent;
-  border-radius: 0;
-  border-bottom: 1px solid whitesmoke;
-  color: whitesmoke;
+  height: 30px; /* Altura do campo */
+  padding: 5px 10px; /* Preenchimento interno */
+  border: none; /* Remove a borda */
+  outline: 0; /* Remove o contorno do campo */
+  background-color: transparent; /* Fundo transparente */
+  border-bottom: 1px solid whitesmoke; /* Borda inferior */
+  color: whitesmoke; /* Cor do texto */
 }
 
+/* Estilos para o label dos campos de entrada */
 #CadastroForm .input_data label {
-  font-family: "Copperplate";
-  font-size: 11px;
-  position: absolute;
+  font-family: "Copperplate"; /* Fonte personalizada */
+  font-size: 11px; /* Tamanho da fonte */
+  position: absolute; /* Posiciona o label sobre o campo */
   top: 50%;
   left: 10px;
-  transform: translateY(-50%);
-  transition: all 0.5s ease;
+  transform: translateY(-50%); /* Centraliza verticalmente o label */
+  transition: all 0.5s ease; /* Transição suave */
   z-index: 1;
-  color: black;
+  color: black; /* Cor do texto */
 }
 
+/* Estilos para o label quando o campo é focado ou válido */
 #CadastroForm .input_data input:focus + label,
 #CadastroForm .input_data input:valid + label {
-  top: -10%;
+  top: -10%; /* Move o label para cima */
   left: 0;
 }
 
+/* Estilos para a área do botão */
 #CadastroForm .btnArea {
   width: 100%;
 }
 
+/* Estilos para a mensagem de erro */
 #CadastroForm .btnArea .msgError {
-  margin-bottom: 10px;
-  height: 25px;
-  color: red;
-  font-style: italic;
+  margin-bottom: 10px; /* Espaçamento abaixo da mensagem */
+  height: 25px; /* Altura da área da mensagem */
+  color: red; /* Cor do texto */
+  font-style: italic; /* Estilo itálico */
 }
 
+/* Estilos para o botão de envio */
 #CadastroForm .btnArea button {
-  font-family: "Copperplate";
-  border: 1px solid whitesmoke;
-  width: 100%;
-  padding: 10px 20px;
-  background-color: whitesmoke;
-  color: black;
-  cursor: pointer;
-  font-size: 18px;
-  letter-spacing: 1.5px;
+  font-family: "Copperplate"; /* Fonte personalizada */
+  border: 1px solid whitesmoke; /* Borda do botão */
+  width: 100%; /* Largura total */
+  padding: 10px 20px; /* Preenchimento interno */
+  background-color: whitesmoke; /* Cor de fundo */
+  color: black; /* Cor do texto */
+  cursor: pointer; /* Cursor de ponteiro */
+  font-size: 18px; /* Tamanho da fonte */
+  letter-spacing: 1.5px; /* Espaçamento entre as letras */
 }
 
+/* Estilos para o botão de envio quando o mouse passa por cima */
 #CadastroForm .btnArea button:hover {
-  background-color: transparent;
-  border: 1px solid whitesmoke;
-  color: whitesmoke;
-  transition: 0.7s;
+  background-color: transparent; /* Fundo transparente */
+  border: 1px solid whitesmoke; /* Borda visível */
+  color: whitesmoke; /* Cor do texto */
+  transition: 0.7s; /* Transição suave */
 }
 
+/* Estilos específicos para o último campo do formulário */
 #CadastroForm .input_data:nth-child(8) {
   width: 100%;
 }
 
+/* Estilos para telas pequenas (máximo 600px) */
 @media (max-width: 600px) {
-  body {
-    background-color: brown;
-  }
   .container {
-    grid-template-columns: 1fr;
-    grid-template-rows: 30% 70%;
-    height: 90%;
+    grid-template-columns: 1fr; /* Define uma coluna */
+    grid-template-rows: 30% 70%; /* Define duas linhas */
+    height: 90%; /* Altura do container */
   }
+
   #cadastroForm {
-    height: 100%;
-    padding: 10px 0px;
+    height: 100%; /* Altura do formulário */
+    padding: 10px 0px; /* Adiciona padding */
   }
 
   .container_rain {
-    display: none;
+    display: none; /* Esconde a chuva */
   }
+
   #cadastroForm p {
-    font-size: 15px;
+    font-size: 15px; /* Tamanho maior para texto */
   }
+
   #cadastroForm h1 {
-    font-size: 25px;
+    font-size: 25px; /* Tamanho maior para título */
   }
+
   .image_container p {
-    font-size: 10px;
+    font-size: 10px; /* Tamanho menor para texto */
   }
 
   .image_container h1 {
-    font-size: 20px;
+    font-size: 20px; /* Tamanho menor para título */
   }
 }
